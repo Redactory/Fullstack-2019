@@ -2,9 +2,10 @@ import React from 'react';
 
 export default function Total(props) {
     let aggregateExcercises = 0;
+    const courseParts = props.course.parts;
 
-    for (let i=0; i<props.parts.length; i++) {
-        aggregateExcercises = aggregateExcercises + props.parts[i].exercises;
+    for (let i=0; i<courseParts.length; i++) {
+        aggregateExcercises = aggregateExcercises + courseParts[i].exercises;
     }
 
     return (
