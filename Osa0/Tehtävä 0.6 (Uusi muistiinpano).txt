@@ -1,0 +1,8 @@
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+palvelin-->selain: new_note
+
+note over selain:
+Selain lopuksi päivittää sen osan näkymästä, mikä muuttuu pyynnön seurauksena.
+Muu osa selainikkunan näkymästä pysyy samana eikä näkymää rakenneta uudestaan
+tyhjästä.
+end note
