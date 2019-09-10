@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+function handleGoodClick() {
+  console.log("Testi!");
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -9,7 +13,18 @@ const App = () => {
 
   return (
     <div>
-      code here
+      <div>
+        <h1>give feedback</h1>
+        <button onClick={() => setGood(good+1)}>good</button>
+        <button onClick={() => setNeutral(neutral+1)}>neutral</button>
+        <button onClick={() => setBad(bad+1)}>bad</button>
+      </div>
+      <div>
+        <h1>statistics</h1>
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+      </div>
     </div>
   )
 }
