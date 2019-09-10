@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 import Statistics from './components/Statistics';
+import Button from './components/Button';
 
 function average(good, neutral, bad) {
   const aggregateClicks = good + neutral + bad;
@@ -32,9 +33,9 @@ const App = () => {
     <div>
       <div>
         <h1>give feedback</h1>
-        <button onClick={() => setGood(good+1)}>good</button>
-        <button onClick={() => setNeutral(neutral+1)}>neutral</button>
-        <button onClick={() => setBad(bad+1)}>bad</button>
+        <Button text="good" setHandler={setGood} value={good}/>
+        <Button text="neutral" setHandler={setNeutral} value={neutral}/>
+        <Button text="bad" setHandler={setBad} value={bad}/>
       </div>
       <Statistics 
         good={good}
