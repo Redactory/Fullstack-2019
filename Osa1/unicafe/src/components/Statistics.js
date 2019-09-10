@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default function Statistics(props) {
+    const clicks = props.good + props.neutral + props.bad;
+    if (clicks === 0) {
+        return <p>No feedback given</p>;
+    }
+
     return (
         <div>
             <h1>statistics</h1>
