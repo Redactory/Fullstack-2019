@@ -1,22 +1,42 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import Next from './components/Next';
+import Vote from './components/Vote';
 
-function handleClick(tableLength, setSelected) {
+function handleNextClick(tableLength, setSelected) {
     const index = Math.floor(Math.random() * Math.floor(tableLength));
 
     setSelected(index);
 }
 
+function handleVoteClick(votes, selected, setVote) {
+  const copyVotes = [...votes];
+  copyVotes[selected] += 1;
+  setVote(copyVotes);
+}
+
 const App = (props) => {
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState(0);
+
+  const numberOfAnecdotes = props.anecdotes.length;
+  let voteArray = Array.apply(null, new Array(numberOfAnecdotes)).map(Number.prototype.valueOf,0);
+
+  const [votes, setVote] = useState(voteArray);
 
   return (
     <div>
+      <div>
+        <Vote 
+          setVote={setVote}
+          votes={votes}
+          selected={selected}
+          handleClick={handleVoteClick}
+        />
         <Next 
             setSelected={setSelected} 
-            tableLength={props.anecdotes.length}
-            handleClick={handleClick}/>
+            tableLength={numberOfAnecdotes}
+            handleClick={handleNextClick}/>
+        </div>
       {props.anecdotes[selected]}
     </div>
   )
