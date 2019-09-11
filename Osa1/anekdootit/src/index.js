@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import Next from './components/Next';
 import Vote from './components/Vote';
-import MostVoted from './components/MostVoted'
+import MostVoted from './components/MostVoted';
+import Anecdote from './components/Anecdote';
 
 function mostVotedAnecdote(anecdoteVotes) {
   let mostPopular = 0;
@@ -58,9 +59,10 @@ const App = (props) => {
             handleClick={handleNextClick}
             />
         </div>
-      <h1>Anecdote of the day</h1>
-      {props.anecdotes[selected]}
-      <p>Has {votes[selected]} votes</p>
+        <Anecdote 
+          anecdote={props.anecdotes[selected]}
+          votes={votes[selected]}
+        />
       <MostVoted 
         anecdotes={anecdotes}
         mostVoted={mostVoted}
