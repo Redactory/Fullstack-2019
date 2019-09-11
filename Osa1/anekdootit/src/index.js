@@ -2,6 +2,20 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import Next from './components/Next';
 import Vote from './components/Vote';
+import MostVoted from './components/MostVoted'
+
+function mostVotedAnecdote(anecdoteVotes) {
+  let mostPopular = 0;
+  let votes = 0;
+  for(let i=0;i<anecdoteVotes.length;i++) {
+    if(anecdoteVotes[i] > votes) {
+      mostPopular = i;
+      votes=anecdoteVotes[i];
+    }
+  }
+
+  return mostPopular;
+}
 
 function handleNextClick(tableLength, setSelected) {
     const index = Math.floor(Math.random() * Math.floor(tableLength));
@@ -9,10 +23,13 @@ function handleNextClick(tableLength, setSelected) {
     setSelected(index);
 }
 
-function handleVoteClick(votes, selected, setVote) {
+function handleVoteClick(votes, selected, setVote, setMostVoted, mostVotedAnecdote) {
   const copyVotes = [...votes];
   copyVotes[selected] += 1;
   setVote(copyVotes);
+
+  const mostVoted = mostVotedAnecdote(copyVotes);
+  setMostVoted(mostVoted);
 }
 
 const App = (props) => {
@@ -20,8 +37,9 @@ const App = (props) => {
 
   const numberOfAnecdotes = props.anecdotes.length;
   let voteArray = Array.apply(null, new Array(numberOfAnecdotes)).map(Number.prototype.valueOf,0);
-
   const [votes, setVote] = useState(voteArray);
+
+  const [mostVoted, setMostVoted] = useState(0);
 
   return (
     <div>
@@ -31,13 +49,23 @@ const App = (props) => {
           votes={votes}
           selected={selected}
           handleClick={handleVoteClick}
+          setMostVoted={setMostVoted}
+          mostVotedAnecdote={mostVotedAnecdote}
         />
         <Next 
             setSelected={setSelected} 
             tableLength={numberOfAnecdotes}
-            handleClick={handleNextClick}/>
+            handleClick={handleNextClick}
+            />
         </div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]}
+      <p>Has {votes[selected]} votes</p>
+      <MostVoted 
+        anecdotes={anecdotes}
+        mostVoted={mostVoted}
+        votes={votes}
+      />
     </div>
   )
 }
