@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Button from './components/Button';
+import Next from './components/Next';
 
 function handleClick(tableLength, setSelected) {
     const index = Math.floor(Math.random() * Math.floor(tableLength));
@@ -13,7 +13,7 @@ const App = (props) => {
 
   return (
     <div>
-        <Button 
+        <Next 
             setSelected={setSelected} 
             tableLength={props.anecdotes.length}
             handleClick={handleClick}/>
