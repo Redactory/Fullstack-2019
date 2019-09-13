@@ -9,10 +9,21 @@ const App = () => {
   function addPerson(event) {
     event.preventDefault();
 
-    const person = [{name: newName}];
-    const addedPersons = persons.concat(person);
+    let foundPersons = [];
+    foundPersons = persons.filter(element => {
+      if (element.name === newName) {
+        return newName;
+      }
+    })
+    
+    if (foundPersons.length === 0) {
+      const person = [{name: newName}];
+      const addedPersons = persons.concat(person);
 
-    setPersons(addedPersons);
+      setPersons(addedPersons);
+    } else {
+      alert(`${newName} is already added to phonebook`);
+    }
   }
 
   function handleChange (event) {
