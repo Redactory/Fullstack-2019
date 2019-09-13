@@ -3,9 +3,10 @@ import PersonContainer from './components/PersonContainer';
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-1234567' }
   ]) 
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   function addPerson(event) {
     event.preventDefault();
@@ -18,7 +19,7 @@ const App = () => {
     })
     
     if (foundPersons.length === 0) {
-      const person = [{name: newName}];
+      const person = [{name: newName, number: newNumber}];
       const addedPersons = persons.concat(person);
 
       setPersons(addedPersons);
@@ -27,8 +28,12 @@ const App = () => {
     }
   }
 
-  function handleChange (event) {
+  function handleNameChange(event) {
     setNewName(event.target.value);
+  }
+
+  function handleNumberChange(event) {
+    setNewNumber(event.target.value);
   }
 
   return (
@@ -36,7 +41,10 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input value={newName} onChange={handleChange} />
+          name: <input value={newName} onChange={handleNameChange} />
+        </div>
+        <div>
+          number: <input value={newNumber} onChange={handleNumberChange}/>
         </div>
         <div>
           <button type="submit">add</button>
