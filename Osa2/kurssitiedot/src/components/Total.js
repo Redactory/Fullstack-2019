@@ -4,9 +4,12 @@ export default function Total(props) {
     let aggregateExcercises = 0;
     const courseParts = props.course.parts;
 
-    for (let i=0; i<courseParts.length; i++) {
-        aggregateExcercises = aggregateExcercises + courseParts[i].exercises;
-    }
+    aggregateExcercises = courseParts.reduce((start, current) => {
+        if (isNaN(start)) {
+            return start.exercises + current.exercises;
+        }
+        return start + current.exercises;
+    });
 
     return (
         <>
