@@ -9,6 +9,10 @@ export default function CountryList(props) {
         return "";
     }
 
+    if (filteredCountries.length === 0) {
+        return "";
+    }
+
     if (filteredCountries.length === 1) {
         const country = filteredCountries[0];
 
