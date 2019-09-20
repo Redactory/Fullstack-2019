@@ -2,32 +2,6 @@ import React from 'react';
 import CountryListItem from './CountryListItem';
 import SingleCountryView from './SingleCountryView';
 
-function filterCountries(countries, searchString) {
-    if(countries.length === 0) {
-        return [];
-    }
-
-    searchString = searchString.toLowerCase();
-    const filteredCountries = [];
-    countries.filter(element=> {
-      const countryName = element.name.toLowerCase();
-      if (countryName.includes(searchString)) {
-        filteredCountries.push(
-            <CountryListItem 
-                key={element.numericCode} 
-                name={countryName}
-                capital={element.capital}
-                population={element.population}
-                languages={element.languages}
-                flag={element.flag}
-            />
-        );
-      }
-    });
-
-    return filteredCountries;
-}
-
 export default function CountryList(props) {
     const filteredCountries = filterCountries(props.countries, props.searchString);
 
@@ -64,4 +38,31 @@ export default function CountryList(props) {
             </div>
         );
     }
+
+    function filterCountries(countries, searchString) {
+        if(countries.length === 0) {
+            return [];
+        }
+    
+        searchString = searchString.toLowerCase();
+        const filteredCountries = [];
+        countries.filter(element=> {
+          const countryName = element.name.toLowerCase();
+          if (countryName.includes(searchString)) {
+            filteredCountries.push(
+                <CountryListItem 
+                    key={element.numericCode} 
+                    name={countryName}
+                    capital={element.capital}
+                    population={element.population}
+                    languages={element.languages}
+                    flag={element.flag}
+                    setSearchString = {props.setSearchString}
+                />
+            );
+          }
+        });
+    
+        return filteredCountries;
+    }    
 }

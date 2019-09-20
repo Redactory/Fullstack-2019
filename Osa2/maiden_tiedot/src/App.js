@@ -23,7 +23,7 @@ function App() {
   return (
     <div>
       <SearchBar value={searchString} handleSearchChange={handleSearchChange}/>
-      <CountryList countries={countries} searchString={searchString}/>  
+      <CountryList countries={countries} searchString={searchString} setSearchString={setSearchString}/>  
     </div>
   );
 }
