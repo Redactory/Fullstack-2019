@@ -28,9 +28,24 @@ const App = () => {
     if (foundPersons.length === 0) {
       const person = {name: newName, number: newNumber};
       APICalls.newPerson(person, persons, setPersons);
-      
+
     } else {
-      alert(`${newName} is already added to phonebook`);
+      const doChange = window.confirm(`${newName} is already added to phonebook, do you want to replace the old number with a new one?`);
+      if (doChange) {
+        const foundPerson = {
+          ...foundPersons[0],
+          number: newNumber
+        }
+
+        const newPersonList =[...persons];
+        for (let i=0; i<newPersonList.length; i++) {
+          if (newPersonList[i].name === newName) {
+            newPersonList.splice(i, 1);
+          }
+        }
+
+        APICalls.updateNumber(foundPerson, newPersonList, setPersons);
+      }
     }
   }
 

@@ -15,7 +15,7 @@ function newPerson(newPerson, persons, setPersons) {
         setPersons(addedPersons);
         return response.data;
     });
-    
+
     return savedPerson;
 }
 
@@ -24,9 +24,22 @@ function deletePerson(id) {
     return request.then(response => response.data);
 }
 
+function updateNumber(foundPerson, persons, setPersons) {
+    const request = axios.put(`${baseUrl}/${foundPerson.id}`, foundPerson);
+    return request.then(response => {
+        const concatedPerson = [];
+        concatedPerson.push(foundPerson);
+        const newPersonList = persons.concat(concatedPerson);
+        setPersons(newPersonList);
+
+        return response.data
+    });
+}
+
 export default {
     populatePersonListState: populatePersonListState,
     newPerson: newPerson,
-    deletePerson: deletePerson
+    deletePerson: deletePerson,
+    updateNumber: updateNumber
 };
 
