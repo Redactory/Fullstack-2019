@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
 
 import PersonContainer from './components/PersonContainer';
 import SearchBar from './components/SearchBar';
@@ -13,11 +12,7 @@ const App = () => {
   const [ search, setSearch ] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data);
-      })
+    APICalls.populatePersonListState(setPersons);
   }, [])
 
   function addPerson(event) {
