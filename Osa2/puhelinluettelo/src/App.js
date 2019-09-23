@@ -38,6 +38,22 @@ const App = () => {
     }
   }
 
+  function deletePerson(id, name) {
+    const doDelete = window.confirm(`Do you want to remove ${name}?`);
+
+    if (doDelete) {
+      APICalls.deletePerson(id);
+
+      const newPersonList = [...persons];
+      for (let i=0; i<newPersonList.length; i++) {
+        if (newPersonList[i].id === id) {
+          newPersonList.splice(i, 1);
+          setPersons(newPersonList);
+        }
+      }
+    }
+  }
+
   // HANDLERS
   function handleNameChange(event) {
     setNewName(event.target.value);
@@ -64,7 +80,7 @@ const App = () => {
         addPerson={addPerson}
         />
       <h2>Numbers</h2>
-        <PersonContainer persons={persons} searchString={search}/>
+        <PersonContainer persons={persons} searchString={search} deletePerson={deletePerson}/>
     </div>
   )
 

@@ -17,7 +17,7 @@ function filterNames(personListing, searchString) {
 export default function ContainerPerson(props) {
     let personListing = [];
     for(let i=0; i<props.persons.length; i++) {
-        personListing.push(<Person key={props.persons[i].name} person={props.persons[i]} />);
+        personListing.push(<Person key={props.persons[i].name} person={props.persons[i]} deletePerson={props.deletePerson}/>);
     }
 
     personListing = filterNames(personListing, props.searchString);

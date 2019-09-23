@@ -11,8 +11,14 @@ function newPerson(newObject) {
     return request.then(response => response.data);
 }
 
+function deletePerson(id) {
+    const request = axios.delete(`${baseUrl}/${id}`);
+    return request.then(response => response.data);
+}
+
 export default {
     populatePersonListState: populatePersonListState,
-    newPerson: newPerson
+    newPerson: newPerson,
+    deletePerson: deletePerson
 };
 
