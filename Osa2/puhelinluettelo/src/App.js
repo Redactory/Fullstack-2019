@@ -4,6 +4,7 @@ import axios from 'axios';
 import PersonContainer from './components/PersonContainer';
 import SearchBar from './components/SearchBar';
 import PersonForm from './components/PersonForm';
+import APICalls from './APICalls';
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
@@ -33,7 +34,10 @@ const App = () => {
       const person = [{name: newName, number: newNumber}];
       const addedPersons = persons.concat(person);
 
+      const savedPerson = {...person[0]};
+
       setPersons(addedPersons);
+      APICalls.newPerson(savedPerson);
     } else {
       alert(`${newName} is already added to phonebook`);
     }
