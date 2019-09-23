@@ -26,13 +26,9 @@ const App = () => {
     });
     
     if (foundPersons.length === 0) {
-      const person = [{name: newName, number: newNumber}];
-      const addedPersons = persons.concat(person);
-
-      const savedPerson = {...person[0]};
-
-      setPersons(addedPersons);
-      APICalls.newPerson(savedPerson);
+      const person = {name: newName, number: newNumber};
+      APICalls.newPerson(person, persons, setPersons);
+      
     } else {
       alert(`${newName} is already added to phonebook`);
     }
