@@ -12,7 +12,7 @@ const App = () => {
   const [ search, setSearch ] = useState('')
 
   useEffect(() => {
-    APICalls.populatePersonListState(setPersons);
+    APICalls.populatePersonListState(setPersons).catch(error => console.log(error));
   }, [])
 
   function addPerson(event) {
@@ -27,7 +27,7 @@ const App = () => {
     
     if (foundPersons.length === 0) {
       const person = {name: newName, number: newNumber};
-      APICalls.newPerson(person, persons, setPersons);
+      APICalls.newPerson(person, persons, setPersons).catch(error => console.log(error));
 
     } else {
       const doChange = window.confirm(`${newName} is already added to phonebook, do you want to replace the old number with a new one?`);
@@ -53,7 +53,7 @@ const App = () => {
     const doDelete = window.confirm(`Do you want to remove ${name}?`);
 
     if (doDelete) {
-      APICalls.deletePerson(id);
+      APICalls.deletePerson(id).catch(error => console.log(error));
 
       const newPersonList = [...persons];
       for (let i=0; i<newPersonList.length; i++) {
