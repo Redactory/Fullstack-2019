@@ -15,7 +15,7 @@ const App = () => {
   const [notificationType, setNotificationType] = useState('');
 
   useEffect(() => {
-    APICalls.populatePersonListState(setPersons).catch(error => console.log(error));
+    APICalls.populatePersonListState(setPersons, showNotification);
   }, [])
 
   function addPerson(event) {
@@ -30,11 +30,8 @@ const App = () => {
     
     if (foundPersons.length === 0) {
       const person = {name: newName, number: newNumber};
-      APICalls
-        .newPerson(person, persons, setPersons)
-        .catch(error => console.log(error));
+      APICalls.newPerson(person, persons, setPersons, showNotification);
 
-        showNotification(`${newName} was added to the number list`, 'passing');
     } else {
       const doChange = window.confirm(`${newName} is already added to phonebook, do you want to replace the old number with a new one?`);
       if (doChange) {
@@ -50,8 +47,7 @@ const App = () => {
           }
         }
 
-        APICalls.updateNumber(foundPerson, newPersonList, setPersons);
-        showNotification(`${foundPerson.name} number was updated`, 'passing');
+        APICalls.updateNumber(foundPerson, newPersonList, setPersons, showNotification);
       }
     }
   }
@@ -60,8 +56,8 @@ const App = () => {
     const doDelete = window.confirm(`Do you want to remove ${name}?`);
 
     if (doDelete) {
-      APICalls.deletePerson(id).catch(error => console.log(error));
-      showNotification(`${name} was removed from the number list`, 'passing');
+      APICalls.deletePerson(id, name, showNotification);
+      
 
       const newPersonList = [...persons];
       for (let i=0; i<newPersonList.length; i++) {

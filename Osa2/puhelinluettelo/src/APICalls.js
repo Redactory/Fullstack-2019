@@ -1,39 +1,65 @@
 import axios from 'axios';
 const baseUrl = 'http://localhost:3001/persons';
 
-function populatePersonListState(setPersons) {
-    const request = axios.get(baseUrl);
-    return request.then(response => setPersons(response.data));
+function populatePersonListState(setPersons, showNotification) {
+    const data = axios.get(baseUrl)
+        .then(response => setPersons(response.data))
+        .catch(error => {
+            showNotification(`Fetching person listing failed for some reason.`, 'error');
+        });
 }
 
-function newPerson(newPerson, persons, setPersons) {
-    const request = axios.post(baseUrl, newPerson);
-    const savedPerson = request.then(response => {
-        const concatedPerson = [];
-        concatedPerson.push(response.data);
-        const addedPersons = persons.concat(concatedPerson);
-        setPersons(addedPersons);
-        return response.data;
-    });
+function newPerson(newPerson, persons, setPersons, showNotification) {
+    const savedPerson = axios.post(baseUrl, newPerson)
+        .then(response => {
+            const concatedPerson = [];
+            concatedPerson.push(response.data);
+            const addedPersons = persons.concat(concatedPerson);
+            setPersons(addedPersons);
+            showNotification(`${newPerson.name} was added to the number list`, 'passing');
+
+            return response.data;
+        })
+        .catch(error => {
+            showNotification(`Adding ${newPerson.name} to the system caused a problem with message ${error}`, 'error');
+        });
 
     return savedPerson;
 }
 
-function deletePerson(id) {
-    const request = axios.delete(`${baseUrl}/${id}`);
-    return request.then(response => response.data);
+function deletePerson(id, name, showNotification) {
+    const data = axios.delete(`${baseUrl}/${id}`)
+        .then(response => {
+            showNotification(`${name} was removed from the number list`, 'passing');
+            return response.data
+        })
+        .catch(error => {
+            if (error.response.status === 404){
+                showNotification(`Deleting ${name} from the list caused an error.`, 'error');
+            }
+        });
+
+        return data;
 }
 
-function updateNumber(foundPerson, persons, setPersons) {
-    const request = axios.put(`${baseUrl}/${foundPerson.id}`, foundPerson);
-    return request.then(response => {
-        const concatedPerson = [];
-        concatedPerson.push(foundPerson);
-        const newPersonList = persons.concat(concatedPerson);
-        setPersons(newPersonList);
+function updateNumber(foundPerson, persons, setPersons, showNotification) {
+    const data = axios.put(`${baseUrl}/${foundPerson.id}`, foundPerson)
+        .then(response => {
+            const concatedPerson = [];
+            concatedPerson.push(foundPerson);
+            const newPersonList = persons.concat(concatedPerson);
+            setPersons(newPersonList);
+            showNotification(`${foundPerson.name} number was updated`, 'passing');
 
-        return response.data
-    });
+            return response.data
+        })
+        .catch(error => {
+            if (error.response.status === 404){
+                showNotification(`${foundPerson.name} has already been removed from the list`, 'error');
+            }
+        });
+
+        return data;
 }
 
 export default {
