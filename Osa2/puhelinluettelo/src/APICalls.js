@@ -1,8 +1,7 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001';
 
 function populatePersonListState(setPersons, showNotification) {
-    const data = axios.get(`${baseUrl}/api/persons`)
+    const data = axios.get(`/api/persons`)
         .then(response => setPersons(response.data))
         .catch(error => {
             showNotification(`Fetching person listing failed for some reason.`, 'error');
@@ -10,7 +9,7 @@ function populatePersonListState(setPersons, showNotification) {
 }
 
 function newPerson(newPerson, persons, setPersons, showNotification) {
-    const savedPerson = axios.post(`${baseUrl}/api/persons`, newPerson)
+    const savedPerson = axios.post(`/api/persons`, newPerson)
         .then(response => {
             const concatedPerson = [];
             concatedPerson.push(newPerson);
@@ -28,7 +27,7 @@ function newPerson(newPerson, persons, setPersons, showNotification) {
 }
 
 function deletePerson(id, name, showNotification) {
-    const data = axios.delete(`${baseUrl}/api/persons/${id}`)
+    const data = axios.delete(`/api/persons/${id}`)
         .then(response => {
             showNotification(`${name} was removed from the number list`, 'passing');
             return response.data
@@ -43,7 +42,7 @@ function deletePerson(id, name, showNotification) {
 }
 
 function updateNumber(foundPerson, persons, setPersons, showNotification) {
-    const data = axios.put(`${baseUrl}/${foundPerson.id}`, foundPerson)
+    const data = axios.put(`/${foundPerson.id}`, foundPerson)
         .then(response => {
             const concatedPerson = [];
             concatedPerson.push(foundPerson);
