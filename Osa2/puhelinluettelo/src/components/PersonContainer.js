@@ -6,6 +6,10 @@ function filterNames(personListing, searchString) {
     searchString = searchString.toLowerCase();
     for(let i=0; i<personListing.length; i++) {
         let personName = personListing[i].props.person.name;
+        if (personName === undefined) {
+            continue;
+        }
+
         if (personName.toLowerCase().includes(searchString)) {
             filteredPersons.push(personListing[i]);
         }

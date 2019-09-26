@@ -2,7 +2,8 @@ import axios from 'axios';
 
 function populatePersonListState(setPersons, showNotification) {
     const data = axios.get(`/api/persons`)
-        .then(response => setPersons(response.data))
+        .then(response => {
+            setPersons(response.data)})
         .catch(error => {
             showNotification(`Fetching person listing failed for some reason.`, 'error');
         });
@@ -12,7 +13,7 @@ function newPerson(newPerson, persons, setPersons, showNotification) {
     const savedPerson = axios.post(`/api/persons`, newPerson)
         .then(response => {
             const concatedPerson = [];
-            concatedPerson.push(newPerson);
+            concatedPerson.push(response.data);
             const addedPersons = persons.concat(concatedPerson);
             setPersons(addedPersons);
             showNotification(`${newPerson.name} was added to the number list`, 'passing');

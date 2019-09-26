@@ -27,11 +27,10 @@ const App = () => {
         return newName;
       }
     });
-    
+
     if (foundPersons.length === 0) {
       const person = {name: newName, number: newNumber};
-      APICalls.newPerson(person, persons, setPersons, showNotification);
-
+      const savedPerson = APICalls.newPerson(person, persons, setPersons, showNotification);
     } else {
       const doChange = window.confirm(`${newName} is already added to phonebook, do you want to replace the old number with a new one?`);
       if (doChange) {
