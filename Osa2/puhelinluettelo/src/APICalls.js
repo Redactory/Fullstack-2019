@@ -21,7 +21,7 @@ function newPerson(newPerson, persons, setPersons, showNotification) {
             return response.data;
         })
         .catch(error => {
-            showNotification(`Adding ${newPerson.name} to the system caused a problem with message ${error}`, 'error');
+            showNotification(error.response.data.message, 'error');
         });
 
     return savedPerson;
@@ -34,9 +34,16 @@ function deletePerson(id, name, showNotification) {
             return response.data
         })
         .catch(error => {
+            showNotification(error.response.data.message, 'error');
+            /*
             if (error.response.status === 404){
-                showNotification(`Deleting ${name} from the list caused an error.`, 'error');
+                showNotification(`Deleting ${error.response.data.message} from the list caused an error.`, 'error');
             }
+
+            if (error.response.status === 400){
+                showNotification(error.response.data.message, 'error');
+            }
+            */
         });
 
         return data;
