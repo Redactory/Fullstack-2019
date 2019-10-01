@@ -35,15 +35,6 @@ function deletePerson(id, name, showNotification) {
         })
         .catch(error => {
             showNotification(error.response.data.message, 'error');
-            /*
-            if (error.response.status === 404){
-                showNotification(`Deleting ${error.response.data.message} from the list caused an error.`, 'error');
-            }
-
-            if (error.response.status === 400){
-                showNotification(error.response.data.message, 'error');
-            }
-            */
         });
 
         return data;
