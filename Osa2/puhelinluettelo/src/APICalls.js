@@ -41,7 +41,7 @@ function deletePerson(id, name, showNotification) {
 }
 
 function updateNumber(foundPerson, persons, setPersons, showNotification) {
-    const data = axios.put(`/${foundPerson.id}`, foundPerson)
+    const data = axios.put(`api/persons/${foundPerson.id}`, foundPerson)
         .then(response => {
             const concatedPerson = [];
             concatedPerson.push(foundPerson);
